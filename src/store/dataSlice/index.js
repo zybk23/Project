@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import moment from "moment";
 import uuid from "react-uuid";
 
 export const getPosts = createAsyncThunk("data/getPosts", async () => {
@@ -12,10 +13,14 @@ export const getPosts = createAsyncThunk("data/getPosts", async () => {
     modifiedData.push({
       ...x,
       likeCount: 0,
+      createdDate: moment(new Date()).unix(),
       answers: [],
     });
   });
-  return modifiedData;
+  const sortedData = modifiedData.sort((a, b) => {
+    return b.createdDate - a.createdDate;
+  });
+  return sortedData;
 });
 
 export const dataSlice = createSlice({
@@ -34,9 +39,14 @@ export const dataSlice = createSlice({
       const newAnswerValue = {
         id: uuid(),
         title: value,
-        date: new Date(),
+        date: moment(new Date()).unix(),
       };
-      state.posts[findIndex].answers.push(newAnswerValue);
+      const currentAnswers = [...state.posts[findIndex].answers];
+      currentAnswers.push(newAnswerValue);
+      const sortedAnswers = currentAnswers.sort((a, b) => {
+        return b.date - a.date;
+      });
+      state.posts[findIndex].answers = sortedAnswers;
     },
     setLikePost: (state, action) => {
       const postId = action.payload;
@@ -59,8 +69,16 @@ export const dataSlice = createSlice({
     },
     setPushPost: (state, action) => {
       const first = [...state.posts];
-      first.push({ ...action.payload, likeCount: 0, answers: [] });
-      state.postsTemp = first;
+      first.push({
+        ...action.payload,
+        createdDate: moment(new Date()).unix(),
+        likeCount: 0,
+        answers: [],
+      });
+      const sortedFirst = first.sort((a, b) => {
+        return b.createdDate - a.createdDate;
+      });
+      state.postsTemp = sortedFirst;
     },
     setIsReloadButtonShow: (state, action) => {
       state.isReloadButtonShow = action.payload;

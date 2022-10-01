@@ -9,6 +9,7 @@ import {
   setIsReloadButtonShow,
 } from "../../store/dataSlice";
 import uuid from "react-uuid";
+import moment from "moment";
 
 const Posts = () => {
   const dispatch = useDispatch();
@@ -36,15 +37,14 @@ const Posts = () => {
         setPushPost({
           userId: 24,
           id: uuid(),
-          title: "soccaecati excepturi optio reprehenderit",
-          body: "quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto",
+          title: "Taha",
+          body: "zeybek",
         })
       );
     }, 10000);
 
     return () => clearInterval(intervalId);
   }, []);
-
   return (
     <div>
       <PostHeader />
