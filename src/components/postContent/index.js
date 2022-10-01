@@ -1,26 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { setAddNewAnswer, setLikePost } from "../../store/dataSlice";
+import { setLikePost } from "../../store/dataSlice";
 import moment from "moment";
+import PostContentTextArea from "../postContentTextArea";
 import "./styles.scss";
 
 const PostContent = ({ posts }) => {
   const dispatch = useDispatch();
-  const [answerValue, setAnswerValue] = useState("");
-  const handleChangeAnswerValue = (e, id) => {
-    if (e.key === "Enter") {
-      const obj = {
-        value: e.target.value,
-        postId: id,
-      };
-      dispatch(setAddNewAnswer(obj));
-      setAnswerValue("");
-    }
-  };
-
-  const handleChange = (e) => {
-    setAnswerValue(e.target.value);
-  };
 
   const handleLikepost = (postId) => {
     dispatch(setLikePost(postId));
@@ -41,17 +27,7 @@ const PostContent = ({ posts }) => {
             </div>
           </div>
           <span className="postBody">{post?.body}</span>
-          <textarea
-            placeholder="Add your comment here"
-            className="textArea"
-            name=""
-            id=""
-            cols="40"
-            rows="8"
-            value={answerValue}
-            onChange={handleChange}
-            onKeyDown={(e) => handleChangeAnswerValue(e, post.id)}
-          />
+          <PostContentTextArea post={post} />
           <div className="answers">
             {post?.answers.map((answer) => (
               <div key={answer.id} className="answerContainer">

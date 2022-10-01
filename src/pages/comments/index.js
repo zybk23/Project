@@ -1,21 +1,35 @@
-import React, { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { getPosts } from "../../store/dataSlice";
-import { PostHeader, PostContent } from "../../components";
-import {
-  setTotalLikeCount,
-  setTotalCommentCount,
-  setPushPost,
-  setIsReloadButtonShow,
-} from "../../store/dataSlice";
-import uuid from "react-uuid";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import moment from "moment";
+import "./styles.scss";
 
 const Comments = () => {
-  const { postsTemp } = useSelector((state) => state.dataSlice);
+  const { posts } = useSelector((state) => state.dataSlice);
+  const [filteredPostData, setFilteredPostData] = useState([]);
 
-  let filteredPosts = [];
-  useEffect(() => {}, []);
-  return <div>Cpommentler</div>;
+  const userId = localStorage.getItem("userId");
+  useEffect(() => {
+    const answerList = [];
+    posts.forEach((x) => {
+      if (x.userId == userId) {
+        x.answers.forEach((answer) => {
+          answerList.push(answer);
+        });
+      }
+    });
+    setFilteredPostData(answerList);
+  }, [posts]);
+  return (
+    <div className="commentContainer">
+      <h2>Comment's on {userId}'s</h2>
+      {filteredPostData.map((item) => (
+        <div className="answers">
+          <span>{item.title}</span>
+          <span>{moment(item?.date).format("MM-DD-YYYY")}</span>
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default Comments;

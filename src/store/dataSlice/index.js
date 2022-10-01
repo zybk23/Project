@@ -11,19 +11,8 @@ export const getPosts = createAsyncThunk("data/getPosts", async () => {
   data.forEach((x) => {
     modifiedData.push({
       ...x,
-      likeCount: 10,
-      answers: [
-        {
-          id: 1,
-          title: "Taha zeybek",
-          date: new Date(),
-        },
-        {
-          id: 2,
-          title: "Halil zeybek",
-          date: new Date(),
-        },
-      ],
+      likeCount: 0,
+      answers: [],
     });
   });
   return modifiedData;
@@ -70,14 +59,14 @@ export const dataSlice = createSlice({
     },
     setPushPost: (state, action) => {
       const first = [...state.posts];
-      first.push({ ...action.payload, likeCount: 4, answers: [] });
-      state.posts = first;
+      first.push({ ...action.payload, likeCount: 0, answers: [] });
+      state.postsTemp = first;
     },
     setIsReloadButtonShow: (state, action) => {
       state.isReloadButtonShow = action.payload;
     },
     setSwitchPostTemp: (state, action) => {
-      state.postsTemp = state.posts;
+      state.posts = state.postsTemp;
     },
   },
   extraReducers: {

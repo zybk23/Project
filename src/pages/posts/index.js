@@ -48,7 +48,7 @@ const Posts = () => {
   return (
     <div>
       <PostHeader />
-      <PostContent posts={postsTemp} />
+      <PostContent posts={posts} />
     </div>
   );
 };
