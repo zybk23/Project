@@ -1,13 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Provider } from "react-redux";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import store from "./store";
+import Posts from "./pages/posts";
+import Comments from "./pages/comments";
+import Navigation from "./components/navigation";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Provider store={store}>
+        <Navigation />
+        <Routes>
+          <Route path="/" element={<Posts />} />
+          <Route path="/comments" element={<Comments />} />
+        </Routes>
+      </Provider>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

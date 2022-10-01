@@ -1,0 +1,30 @@
+.headerContainer {
+  width: 100%;
+  height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  background-color: yellow;
+
+  .headerBtn {
+    width: 60px;
+    height: 40px;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 20px;
+  }
+
+  .countContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 80%;
+
+    span {
+      margin-left: 20px;
+    }
+  }
+}
