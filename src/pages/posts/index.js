@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getPosts } from "../../store/dataSlice";
 import { PostHeader, PostContent } from "../../components";
 import {
   setTotalLikeCount,
@@ -9,15 +8,11 @@ import {
   setIsReloadButtonShow,
 } from "../../store/dataSlice";
 import uuid from "react-uuid";
-import moment from "moment";
 
 const Posts = () => {
   const dispatch = useDispatch();
   const { posts, postsTemp } = useSelector((state) => state.dataSlice);
-  useEffect(() => {
-    dispatch(getPosts());
-    localStorage.setItem("userId", 1);
-  }, []);
+
   useEffect(() => {
     dispatch(setTotalLikeCount());
     dispatch(setTotalCommentCount());

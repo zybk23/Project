@@ -68,7 +68,7 @@ export const dataSlice = createSlice({
       state.totalCommentCount = totalComment;
     },
     setPushPost: (state, action) => {
-      const first = [...state.posts];
+      const first = [...state.postsTemp];
       first.push({
         ...action.payload,
         createdDate: moment(new Date()).unix(),

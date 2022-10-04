@@ -8,6 +8,7 @@ import store from "./store";
 import Posts from "./pages/posts";
 import Comments from "./pages/comments";
 import Navigation from "./components/navigation";
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -15,10 +16,7 @@ root.render(
     <BrowserRouter>
       <Provider store={store}>
         <Navigation />
-        <Routes>
-          <Route path="/" element={<Posts />} />
-          <Route path="/comments" element={<Comments />} />
-        </Routes>
+        <App />
       </Provider>
     </BrowserRouter>
   </React.StrictMode>
