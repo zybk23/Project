@@ -5,8 +5,6 @@ import { Provider } from "react-redux";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import store from "./store";
-import Posts from "./pages/posts";
-import Comments from "./pages/comments";
 import Navigation from "./components/navigation";
 import App from "./App";
 
